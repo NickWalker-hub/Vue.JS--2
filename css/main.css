@@ -1,0 +1,13 @@
+* {
+    font-family: 'Montserrat', sans-serif;
+    padding: 8px;
+}
+
+.header {
+    text-align: center;
+}
+
+.columns {
+    display: flex;
+    justify-content: space-around;
+}
