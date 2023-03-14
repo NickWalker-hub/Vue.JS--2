@@ -1,45 +1,8 @@
 let eventBus = new Vue()
 
-Vue.component('tasks', {
+Vue.component('todolist', {
     template: `
-        <div>
-            <ul>
-                <li v-for="ta in card.task">{{ta.title}}</li>
-            </ul>
-        </div>
-    `,
-    data() {
-        return {
-
-        }
-    },
-    props: {
-        card: {
-            type: Object,
-            required: true
-        }
-    }
-});
-
-Vue.component('column', {
-    template: `
-        <div class="column">
-            <div v-for="card in column1">
-                <h2>{{card.name}}</h2>
-                <tasks :card="card"></tasks>
-            </div>
-        </div>
-    `,
-    props: {
-        column1: {
-            type: Array,
-        }
-    }
-});
-
-Vue.component('notes', {
-    template: `
-        <div class="notes">
+        <div class="todolist">
             <div class="header">
                 <h1>Заметки</h1>
                 <add-note></add-note>
@@ -66,12 +29,51 @@ Vue.component('notes', {
         }
     },
     mounted() {
-        eventBus.$on('notes', card => {
+        eventBus.$on('todolist', card => {
             if (this.column1.length < 3){
                 this.column1.push(card)
             }
         })
     },
+});
+
+Vue.component('column', {
+    template: `
+        <div class="column">
+            <div v-for="card in column1">
+                
+            </div>
+        </div>
+    `,
+    props: {
+        column1: {
+            type: Array,
+        }
+    },
+    methods: {
+
+    }
+});
+
+Vue.component('card', {
+    template: `
+        <h2>{{card.name}}</h2>
+        <ul>
+            <li
+                :class="{completedTask: tsk.completed}"
+                v-if="tsk.title != null"
+                @click="tsk.completed = true"
+            >{{t.title}}</li>
+            <card :card="card" v-for="tsk in card"></card>
+        </ul>
+        
+    `,
+    props: {
+        tsk: {
+            type: Object,
+            required: true
+        }
+    }
 });
 
 Vue.component('add-note', {
@@ -83,15 +85,15 @@ Vue.component('add-note', {
             </p>
             <p>
                 <label for="task1">Пункт 1:</label>
-                <input required id="task1" v-model="task1.title" placeholder="Пункт 1">
+                <input required id="task1" v-model="title1" placeholder="Пункт 1">
                 <label for="task2">Пункт 2:</label>
-                <input required id="task2" v-model="task2.title" placeholder="Пункт 2">
+                <input required id="task2" v-model="title2" placeholder="Пункт 2">
                 <label for="task3">Пункт 3:</label>
-                <input required id="task3" v-model="task3.title" placeholder="Пункт 3">
+                <input required id="task3" v-model="title3" placeholder="Пункт 3">
                 <label for="task4">Пункт 4:</label>
-                <input id="task4" v-model="task4.title" placeholder="Пункт 4">
+                <input id="task4" v-model="title4" placeholder="Пункт 4">
                 <label for="task5">Пункт 5:</label>
-                <input id="task5" v-model="task5.title" placeholder="Пункт 5">
+                <input id="task5" v-model="title5" placeholder="Пункт 5">
             </p>
             <input type="submit" value="Добавить">
         </form>
@@ -99,44 +101,34 @@ Vue.component('add-note', {
     data() {
         return {
             name: null,
-            task1: {
-                title:null,
-                completed: false
-            },
-            task2: {
-                title:null,
-                completed: false
-            },
-            task3: {
-                title:null,
-                completed: false
-            },
-            task4: {
-                title:null,
-                completed: false
-            },
-            task5: {
-                title:null,
-                completed: false
-            },
+            title1: null,
+            title2: null,
+            title3: null,
+            title4: null,
+            title5: null
         }
     },
     methods: {
         sendCard() {
             let card = {
                 name: this.name,
-                task: [this.task1, this.task2, this.task3, this.task4, this.task5],
+                task: [
+                    {title: this.title1, completed: false},
+                    {title: this.title2, completed: false},
+                    {title: this.title3, completed: false},
+                    {title: this.title4, completed: false},
+                    {title: this.title5, completed: false},
+                ],
                 data: null,
                 status: 0,
             }
-            eventBus.$emit('notes', card)
+            eventBus.$emit('todolist', card)
             this.name = null
-            this.task = null
-            this.task1.title = null
-            this.task2.title = null
-            this.task3.title = null
-            this.task4.title = null
-            this.task5.title = null
+            this.title1 = null
+            this.title2 = null
+            this.title3 = null
+            this.title4 = null
+            this.title5 = null
             console.log(card)
         }
     },

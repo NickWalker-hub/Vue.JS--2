@@ -11,3 +11,8 @@
     display: flex;
     justify-content: space-around;
 }
+
+.completedTask {
+    text-decoration: line-through;
+    cursor: default;
+}
