@@ -1,18 +1,68 @@
-* {
-    font-family: 'Montserrat', sans-serif;
-    padding: 8px;
-}
-
 .header {
     text-align: center;
 }
-
 .columns {
     display: flex;
     justify-content: space-around;
 }
 
+.columns > div {
+    width: 33%;
+}
+
+.columns > div > h1{
+    text-align: center;
+}
+
+li {
+    cursor: pointer;
+}
+
 .completedTask {
     text-decoration: line-through;
     cursor: default;
+    pointer-events: none;
+}
+
+.card {
+    background-color: lightgrey;
+    padding: 2px 20px;
+    border-radius: 4px;
+    border: 2px solid rgb(1, 1, 1);
+    width: 40%;
+    max-width: 100%;
+    margin: 20px auto;
+}
+
+input {
+    border: 2px solid rgb(1, 1, 1);
+    border-radius: 4px;
+    height: 28px;
+    padding-left: 8px;
+    font-size: 15px;
+    margin: 0 10px 0 3px;
+}
+
+.addCardName {
+    margin: 18px 0;
+}
+
+.addCard > div {
+    margin: 18px 0;
+}
+
+.btn {
+    height: 30px;
+    width: 210px;
+}
+
+.btnDisabled {
+    color: lightgrey;
+    height: 30px;
+    width: 210px;
+}
+
+.min {
+    color: rgb(128, 128, 128);
+    position: absolute;
 }
