@@ -212,4 +212,4 @@ Vue.component('add-note', {
 
 let app = new Vue({
     el: '#app'
-})
+});
