@@ -131,7 +131,7 @@ Vue.component('note', {
                     v-for="tsk in card.task" 
                     v-if="tsk.title != null"
                     @click="tsk.completed = true"
-                    @click="card.status += 1"
+                    @click="card.status +=1"
                     @click.prevent="changeCompleted(card)"
                     :class="{ completedTask: tsk.completed }"
                 >{{tsk.title}}</li>
